@@ -485,107 +485,471 @@
    />
     </section>
 
-    <section id ="projects">
-        <p class="section__text__p1">Browse My Recent </p>
-        <h1 class="title">Projects</h1>
+ <section id="projects">
+  <style>
 
-        <div class="projects-details-container">
-          <div class="projects-card">
-            <div class ="details-container color-container">
-                <div class="article-container">
-                    <div class="overlay" src="./assets/robo.gif">  </div>
-                    <img 
-                        id="project-img"
-                        src="./assets/project2.png" 
-                        alt="Project1"
-                        class="project-img"
-                    />
-                </div>
-                <h2 class="experience-sub-title project-title">Project One</h2>
-                <div class="btn-container">
-                    <button
-                        class="btn btn-color-2 project-btn"
-                        onclick="location.href='https://github.com/davidmtzh/pololu-3pi-robotics'" 
-                    >
-                        Github
-                    </button>
-                    <button
-                        class="btn btn-color-2 project-btn"
-                        onclick="location.href='https://davidmtzh.github.io/html-css-js-portfolio/assets/robo.gif'" 
-                    >
-                        Live Demo
-                    </button>
+    /* Make preview images fully responsive and clipped to the card */
+/* Center image and show it fully (no crop) */
+/* The card's preview area */
+#projects .media{
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background-color: #0f172a;
+  background-size: cover;       /* or 'contain' */
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
-                        
-                </div>
-            </div>
-        
-        
-            <div class ="details-container color-container">
-                <div class="article-container">
-                    <div class="overlay" src="./assets/project6.png">  </div>
-                    <img 
-                        id="project-img"
-                        src="./assets/project6.png" 
-                        alt="Project1"
-                        class="project-img"
-                    />
-                  
-                </div>
-                <h2 class="experience-sub-title project-title">Project Two</h2>
-                <div class="btn-container">
-                    <button
-                        class="btn btn-color-2 project-btn"
-                        onclick="location.href='https://github.com/cmartinez1542/RPG-Intro'" 
-                    >
-                        Github
-                    </button>
-                    <button
-                        class="btn btn-color-2 project-btn"
-                        onclick="location.href='https://davidmtzh.github.io/html-css-js-portfolio/assets/Tutorial_Level.mp4'" 
-                    >
-                        Live Demo
-                    </button>
+/* The preview image fills the box and is centered */
+#projects .media > img{
+  width: 100%;
+  height: 100% !important;        /* beat global 'height:auto' */
+  max-width: none;                /* beat global 'max-width:100%' rules */
+  object-fit: cover;              /* or 'contain' if you prefer no crop */
+  object-position: center;
+  display: block;
+}
 
-                        
-                </div>
-            </div>
-       
-               
-            <div class ="details-container color-container">
-                <div class="article-container">
-                    <div class="overlay" src="./assets/project4.png">  </div>
-                    <img 
-                        id="project-img"
-                        src="./assets/project4.png" 
-                        alt="Project1"
-                        class="project-img"
-                    />
-                  
-                </div>
-                <h2 class="experience-sub-title project-title">Project Three</h2>
-                <div class="btn-container">
-                    <button
-                        class="btn btn-color-2 project-btn"
-                        onclick="location.href='https://github.com'" 
-                    >
-                        Github
-                    </button>
-                    <button
-                        class="btn btn-color-2 project-btn"
-                        onclick="location.href='https://github.com'" 
-                    >
-                        Live Demo
-                    </button>
 
-                        
-                </div>
-            </div>
-         </div>
+
+    /* ---- Scoped to #projects so it won't clash ---- */
+    #projects { padding: 0 1rem 2.5rem; }
+    #projects .title { margin: .25rem 0 .75rem; }
+    #projects .lead { color: #6b7280; margin: 0 0 1rem; }
+
+    #projects .toolbar { display:grid; gap:.75rem; margin:.75rem 0 1rem; }
+    #projects .field { position: relative; }
+    #projects input, #projects select {
+      width:100%; padding:.7rem .9rem; border-radius:.75rem; border:1px solid #e5e7eb;
+      background:#fff; outline:none;
+    }
+    #projects input:focus, #projects select:focus { box-shadow:0 0 0 3px rgba(59,130,246,.25); border-color:#93c5fd; }
+
+    #projects .chips { display:flex; flex-wrap:wrap; gap:.5rem; }
+    #projects .chip { padding:.45rem .7rem; border-radius:999px; border:1px solid #e5e7eb; background:#f9fafb; font-size:.85rem; cursor:pointer; }
+    #projects .chip.active { background:#3b82f6; color:#fff; border-color:transparent; }
+
+    #projects .grid { display:grid; gap:1rem; grid-template-columns:1fr; }
+    @media (min-width:640px){ #projects .grid { grid-template-columns:repeat(2, 1fr);} }
+    @media (min-width:980px){ #projects .grid { grid-template-columns:repeat(3, 1fr);} }
+
+    #projects .card {
+      background:#fff; border:1px solid #e5e7eb; border-radius:1rem; overflow:hidden;
+      display:grid; grid-template-rows:auto 1fr auto; transition:transform .12s ease, box-shadow .12s ease;
+    }
+    #projects .card:hover { transform: translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,.07); }
+    #projects .media { aspect-ratio:16/9; position:relative; background:#0f172a; }
+    #projects .media img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    #projects .body { padding:.9rem; display:grid; gap:.4rem; }
+    #projects .meta { display:flex; gap:.5rem; flex-wrap:wrap; }
+    #projects .badge { font-size:.75rem; padding:.2rem .5rem; border-radius:999px; border:1px solid #e5e7eb; background:#f8fafc; color:#6b7280; }
+    #projects .tags { display:flex; gap:.35rem; flex-wrap:wrap; }
+    #projects .tag { font-size:.75rem; padding:.25rem .5rem; border-radius:999px; background:#1f2937; color:#fff; opacity:.9; }
+    #projects .actions { display:flex; gap:.5rem; padding:.75rem; border-top:1px solid #e5e7eb; }
+    #projects .btn { flex:1; text-align:center; padding:.6rem .75rem; border-radius:.7rem; border:1px solid #e5e7eb; background:#f9fafb; text-decoration:none; font-weight:600; }
+    #projects .btn.primary { background:#3b82f6; color:#fff; border:none; }
+    #projects .empty { display:none; text-align:center; color:#6b7280; padding:1rem; border:1px dashed #e5e7eb; border-radius:.75rem; }
+
+    /* modal (native <dialog>) */
+    #projects dialog { border:none; padding:0; border-radius:1rem; max-width:min(920px,96vw); }
+    #projects dialog::backdrop { background:rgba(0,0,0,.55); }
+    #projects .modal-header { display:flex; justify-content:space-between; align-items:center; padding:1rem; border-bottom:1px solid #e5e7eb; background:#fff; }
+    #projects .modal-body { padding:1rem; background:#fff; }
+    #projects .modal-grid { display:grid; gap:1rem; grid-template-columns:1fr; }
+    @media (min-width:860px){ #projects .modal-grid { grid-template-columns:2fr 1fr; } }
+    #projects .gallery { border:1px solid #e5e7eb; border-radius:.75rem; overflow:hidden; background:#000; }
+    #projects .gallery img { width:100%; height:360px; object-fit:cover; display:block; }
+    #projects .iconbtn { border:none; cursor:pointer; padding:.5rem .6rem; border-radius:.6rem; background:#3b82f6; color:#fff; }
+    #projects .footnote { color:#6b7280; font-size:.85rem; margin-top:.5rem; }
+  </style>
+
+  <p class="section__text__p1">Browse My Recent</p>
+  <h1 class="title">Projects</h1>
+  <p class="lead">Search, filter, and open details. (Esc closes the dialog)</p>
+
+  <div class="toolbar" aria-label="Project filters">
+    <div class="field"><input id="proj-q" placeholder="Search title, description, stack…" autocomplete="off" /></div>
+    <div class="field">
+      <select id="proj-sort">
+        <option value="new">Newest</option>
+        <option value="old">Oldest</option>
+        <option value="az">A → Z</option>
+        <option value="za">Z → A</option>
+      </select>
     </div>
-    
-  </section>
-    
+    <div class="chips" id="proj-chips" aria-label="Filter by tag"></div>
+  </div>
+
+  <div id="proj-grid" class="grid" aria-live="polite"></div>
+  <div id="proj-empty" class="empty">No projects match your filters.</div>
+  <p class="footnote">Tip: press “/” to focus search</p>
+
+  <!-- Modal -->
+  <dialog id="proj-modal" aria-modal="true">
+    <div class="modal-header">
+      <h2 id="proj-modal-title" style="margin:0;font-size:1.1rem;"></h2>
+      <button id="proj-close" class="iconbtn" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-grid">
+        <div>
+          <div class="gallery"><img id="proj-gallery" alt="Project preview" /></div>
+          <p id="proj-modal-desc" style="margin:.75rem 0 0;color:#4b5563;"></p>
+        </div>
+        <div>
+          <div class="meta" id="proj-modal-meta" style="margin-bottom:.5rem;"></div>
+          <div class="tags" id="proj-modal-tags" style="margin-bottom:.75rem;"></div>
+          <div class="actions">
+            <a id="proj-live" class="btn primary" target="_blank" rel="noreferrer noopener">Live demo</a>
+            <a id="proj-code" class="btn" target="_blank" rel="noreferrer noopener">Source</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    // ===== Your projects (links + assets from your snippet) =====
+    const projects = [
+      {
+        title: "3pi+ Autonomous Robot",
+        year: 2025,
+        description: "Pololu 3pi+ robotics work: FSA, wall following, line tracking, sonar avoidance.",
+        tags: ["robotics","arduino"],
+        stack: ["C++","Arduino","PID"],
+        links: {
+          code: "https://github.com/davidmtzh/pololu-3pi-robotics",
+          live: "https://davidmtzh.github.io/html-css-js-portfolio/assets/robo.gif"
+        },
+        images: ["./assets/project2.png","./assets/robo.gif"]
+      },
+      {
+        title: "RPG Intro (Unity)",
+        year: 2025,
+        description: "Unity tutorial level / vertical slice with basic systems and level flow.",
+        tags: ["game","unity"],
+        stack: ["C#","Unity"],
+        links: {
+          code: "https://github.com/cmartinez1542/RPG-Intro",
+          live: "https://davidmtzh.github.io/html-css-js-portfolio/assets/Tutorial_Level.mp4"
+        },
+        images: ["./assets/project6.png"]
+      },
+      {
+        title: "Project Three",
+        year: 2024,
+        description: "Placeholder description—update this to your real third project.",
+        tags: ["web"],
+        stack: ["HTML","CSS","JS"],
+        links: {
+          code: "https://github.com",
+          live: "https://github.com"
+        },
+        images: ["./assets/project4.png"]
+      }
+    ];
+
+    // ===== Small helper/state/render (scoped) =====
+    const $ = (s,root=document)=>root.querySelector(s);
+    const $$ = (s,root=document)=>Array.from(root.querySelectorAll(s));
+    const root = document.getElementById("projects");
+
+    const state = { q:"", tag:null, sort:"new" };
+    const unique = a => [...new Set(a)];
+
+    function computeTags(list){ return unique(list.flatMap(p=>p.tags)).sort(); }
+    function sortProjects(list, mode){
+      const copy=[...list];
+      if(mode==="old") copy.sort((a,b)=>a.year-b.year);
+      else if(mode==="az") copy.sort((a,b)=>a.title.localeCompare(b.title));
+      else if(mode==="za") copy.sort((a,b)=>b.title.localeCompare(a.title));
+      else copy.sort((a,b)=>b.year-a.year);
+      return copy;
+    }
+    function filterProjects(list,q,tag){
+      const query=q.trim().toLowerCase();
+      return list.filter(p=>{
+        const hit=!query || [p.title,p.description,(p.stack||[]).join(" ")].join(" ").toLowerCase().includes(query);
+        const tagOk=!tag || (p.tags||[]).includes(tag);
+        return hit && tagOk;
+      });
+    }
+
+    function badge(t){ return `<span class="badge">${t}</span>`; }
+    function pill(t){ return `<span class="tag">${t}</span>`; }
+
+    function cardHTML(p, idx){
+      const cover=p.images?.[0]||"";
+      return `
+      <article class="card" tabindex="0" aria-labelledby="prj-${idx}">
+        <div class="media">${cover?`<img src="${cover}" alt="${p.title} cover">`:``}</div>
+        <div class="body">
+          <h3 id="prj-${idx}" style="margin:.1rem 0 .2rem;">${p.title}</h3>
+          <p style="margin:0;color:#4b5563;">${p.description}</p>
+          <div class="meta">${badge(p.year)}</div>
+          <div class="tags">${(p.stack||[]).map(pill).join("")}</div>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="${p.links?.live||'#'}" target="_blank" rel="noreferrer noopener">Live</a>
+          <a class="btn" href="${p.links?.code||'#'}" target="_blank" rel="noreferrer noopener">Code</a>
+          <button class="btn" data-details="${idx}">Details</button>
+        </div>
+      </article>`;
+    }
+
+function renderChips(){
+  const chipWrap = $("#proj-chips", root);
+  const tags = computeTags(projects);
+  chipWrap.innerHTML = ["All", ...tags]
+    .map(t => `<button class="chip${state.tag===null && t==='All' ? ' active':''}${state.tag===t?' active':''}" data-tag="${t}">${t}</button>`)
+    .join("");
+}
+
+// Attach a persistent click handler (NOT once:true)
+$("#proj-chips", root).addEventListener("click", (e) => {
+  const btn = e.target.closest(".chip");
+  if (!btn) return;
+
+  const val = btn.dataset.tag;
+
+  // If you click the active chip, clear filter (go back to All)
+  const isActive = btn.classList.contains("active");
+  if (isActive && val !== "All") {
+    state.tag = null;  // deselect
+  } else {
+    state.tag = (val === "All") ? null : val;
+  }
+
+  // Update chip UI
+  $$(".chip", root).forEach(c => c.classList.remove("active"));
+  if (state.tag === null) {
+    $$(".chip", root).find(c => c.dataset.tag === "All")?.classList.add("active");
+  } else {
+    $$(".chip", root).find(c => c.dataset.tag === state.tag)?.classList.add("active");
+  }
+
+  renderGrid();
+});
+
+    function renderGrid(){
+      const grid=$("#proj-grid",root);
+      const empty=$("#proj-empty",root);
+      const list=sortProjects(filterProjects(projects,state.q,state.tag),state.sort);
+      grid.innerHTML = list.map((p,i)=>cardHTML(p,i)).join("");
+      empty.style.display = list.length ? "none":"block";
+    }
+
+    // Modal
+    const modal = $("#proj-modal",root);
+    const modalTitle = $("#proj-modal-title",root);
+    const modalDesc = $("#proj-modal-desc",root);
+    const modalMeta = $("#proj-modal-meta",root);
+    const modalTags = $("#proj-modal-tags",root);
+    const modalLive = $("#proj-live",root);
+    const modalCode = $("#proj-code",root);
+    const gallery = $("#proj-gallery",root);
+    let galleryIdx=0, galleryImgs=[];
+
+    function openModal(p){
+      modalTitle.textContent=p.title;
+      modalDesc.textContent=p.description;
+      modalMeta.innerHTML = `${badge(p.year)}`;
+      modalTags.innerHTML = (p.stack||[]).map(pill).join("");
+      modalLive.href = p.links?.live || "#";
+      modalCode.href = p.links?.code || "#";
+      galleryImgs = (p.images && p.images.length) ? p.images : ["./assets/project2.png"];
+      galleryIdx = 0; gallery.src = galleryImgs[0];
+      modal.showModal();
+    }
+
+    $("#proj-close",root).addEventListener("click",()=>modal.close());
+    window.addEventListener("keydown",(e)=>{ if(e.key==="Escape" && modal.open) modal.close(); });
+
+    // Init
+    (function init(){
+      renderChips();
+      renderGrid();
+      $("#proj-q",root).addEventListener("input",e=>{ state.q=e.target.value; renderGrid(); });
+      $("#proj-sort",root).addEventListener("change",e=>{ state.sort=e.target.value; renderGrid(); });
+      document.addEventListener("click",(e)=>{
+        const btn=e.target.closest("[data-details]"); if(!btn) return;
+        const idx=Number(btn.dataset.details);
+        const list=sortProjects(filterProjects(projects,state.q,state.tag),state.sort);
+        openModal(list[idx]);
+      });
+      window.addEventListener("keydown",(e)=>{
+        if(e.key==="/" && !e.metaKey && !e.ctrlKey && !e.altKey){ e.preventDefault(); $("#proj-q",root).focus(); }
+      });
+    })();
+  </script>
+</section>
+
+    <section id="contact">
+  <style>
+    /* ===== Contact (scoped to #contact) ===== */
+    #contact{padding:2.5rem 1rem 3rem}
+    #contact .eyebrow{letter-spacing:.14em;color:#33363d;font-size:.9rem}
+    #contact .title{margin:.25rem 0 1rem}
+    #contact .grid{display:grid;gap:1rem;grid-template-columns:1fr}
+    @media (min-width:900px){#contact .grid{grid-template-columns:1.2fr .8fr}}
+
+    #contact .card{background:#fff;border:1px solid #e5e7eb;border-radius:1rem;padding:1rem}
+    #contact .field{display:grid;gap:.35rem;margin-bottom:.8rem}
+    #contact label{font-weight:600;font-size:.9rem}
+    #contact input,#contact textarea{
+      width:100%;padding:.75rem .9rem;border:1px solid #e5e7eb;border-radius:.75rem;outline:none;background:#fff
+    }
+    #contact input:focus,#contact textarea:focus{box-shadow:0 0 0 3px rgba(59,130,246,.2);border-color:#93c5fd}
+    #contact textarea{min-height:140px;resize:vertical}
+
+    #contact .row{display:grid;gap:.8rem;grid-template-columns:1fr}
+    @media (min-width:560px){#contact .row{grid-template-columns:1fr 1fr}}
+
+    #contact .actions{display:flex;gap:.6rem;align-items:center;margin-top:.4rem}
+    #contact .btn{padding:.7rem 1rem;border-radius:.7rem;border:1px solid #e5e7eb;background:#f9fafb;font-weight:700}
+    #contact .btn.primary{background:#3b82f6;color:#fff;border:none}
+    #contact .muted{color:#6b7280;font-size:.9rem}
+
+    #contact .info{display:grid;gap:.8rem}
+    #contact .item{display:flex;gap:.7rem;align-items:flex-start;padding:.75rem;border:1px solid #e5e7eb;border-radius:.8rem;background:#fff}
+    #contact .item b{display:block}
+    #contact .copy{border:none;background:#eef2ff;color:#1f3cff;padding:.35rem .55rem;border-radius:.5rem;cursor:pointer}
+    #contact .social{display:flex;gap:.5rem;flex-wrap:wrap}
+    #contact .chip{padding:.45rem .7rem;border-radius:999px;border:1px solid #e5e7eb;background:#f9fafb}
+    #contact .hide{display:none}
+
+    /* Dark-friendly defaults */
+    @media (prefers-color-scheme: dark){
+      #contact .card,#contact .item{background:#0b1220;border-color:#1e293b}
+      #contact input,#contact textarea{background:#0b1220;border-color:#1e293b;color:#e5e7eb}
+      #contact .btn{background:#0f172a;border-color:#1e293b;color:#e5e7eb}
+      #contact .chip{background:#0f172a;border-color:#1e293b;color:#e5e7eb}
+      #contact .muted{color:#93a3b8}
+    }
+  </style>
+
+  <p class="eyebrow">Contact</p>
+  <h2 class="title">Let’s work together</h2>
+
+  <div class="grid">
+    <!-- Form -->
+    <form id="contact-form" class="card" novalidate>
+      <div class="row">
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" placeholder="Your name" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="subject">Subject</label>
+        <input id="subject" name="subject" placeholder="What’s this about?" required />
+      </div>
+
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Tell me a bit about your project…" required></textarea>
+      </div>
+
+      <!-- Honeypot (spam trap) -->
+      <input type="text" name="company" class="hide" tabindex="-1" autocomplete="off" />
+
+      <div class="actions">
+        <button class="btn primary" id="sendBtn" type="submit">Send</button>
+        <button class="btn" id="mailtoBtn" type="button">Open email app</button>
+        <span id="form-status" class="muted" role="status" aria-live="polite"></span>
+      </div>
+    </form>
+
+    <!-- Info / Quick actions -->
+    <div class="card info">
+      <div class="item">
+        <div>
+          <b>Email</b>
+          <span id="myEmail">carlos_10david@hotmail.com</span>
+        </div>
+        <button class="copy" id="copyEmail" aria-label="Copy email">Copy</button>
+      </div>
+
+      <div class="item">
+        <div>
+          <b>Location</b>
+          <span>San Diego, CA</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div>
+          <b>Social</b>
+          <div class="social">
+            <a class="chip" href="https://www.linkedin.com/in/carlos-d-martinez-6bb753363" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="chip" href="https://github.com/davidmtzh" target="_blank" rel="noreferrer">GitHub</a>
+            <!-- add more chips as needed -->
+          </div>
+        </div>
+      </div>
+
+      <p class="muted">Prefer email? Use the button above to copy or open your mail app.</p>
+    </div>
+  </div>
+
+  <script>
+    // ===== Minimal client-side handling =====
+    (function(){
+      const form = document.getElementById('contact-form');
+      const status = document.getElementById('form-status');
+      const sendBtn = document.getElementById('sendBtn');
+      const mailtoBtn = document.getElementById('mailtoBtn');
+      const copyBtn = document.getElementById('copyEmail');
+      const emailText = document.getElementById('myEmail').textContent.trim();
+
+      // Mailto fallback
+      mailtoBtn.addEventListener('click', ()=>{
+        const n = encodeURIComponent(document.getElementById('name').value || '');
+        const s = encodeURIComponent(document.getElementById('subject').value || 'Portfolio inquiry');
+        const m = encodeURIComponent(document.getElementById('message').value || '');
+        window.location.href = `mailto:${emailText}?subject=${s}&body=Hi, I’m ${n}.%0D%0A%0D%0A${m}`;
+      });
+
+      // Copy email
+      copyBtn.addEventListener('click', async ()=>{
+        try { await navigator.clipboard.writeText(emailText); copyBtn.textContent = 'Copied!'; setTimeout(()=>copyBtn.textContent='Copy',1400); }
+        catch { /* ignore */ }
+      });
+
+      // Basic validation + (optional) Formspree / Netlify endpoint
+      form.addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        status.textContent = '';
+        if (!form.reportValidity()) return;
+
+        // Block bots via honeypot
+        if (form.company && form.company.value) return;
+
+        sendBtn.disabled = true; sendBtn.textContent = 'Sending…';
+
+        // ==== OPTION A: Formspree (replace with your endpoint) ====
+        // const endpoint = 'https://formspree.io/f/your-id';
+        // const res = await fetch(endpoint, { method:'POST', headers:{'Accept':'application/json'}, body:new FormData(form) });
+
+        // ==== OPTION B: Netlify (no extra JS needed) ====
+        // Add: <form name="contact" netlify> and hidden input: <input type="hidden" name="form-name" value="contact">
+        // Then just submit normally (remove fetch above).
+
+        // For now we’ll simulate success:
+        await new Promise(r=>setTimeout(r,700));
+        sendBtn.disabled = false; sendBtn.textContent = 'Send';
+        form.reset();
+        status.textContent = 'Thanks! I’ll get back to you soon.';
+      });
+    })();
+  </script>
+</section>
+
 
  <!-- Link to your JavaScript file (used to open/close hamburger menu) -->
   <script src="script.js"></script>

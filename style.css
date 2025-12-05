@@ -593,3 +593,9 @@ article.icon {
     gap: 4rem;
     
   }
+
+  #contact .eyebrow{
+  text-align: center;
+  display: block;     /* ensure block-level for full-width */
+  margin-bottom: .25rem;
+}
